@@ -44,9 +44,13 @@ def letterchoice(type):
 
 def wordgen(structure):
     word = ""
+    abbrev = ""
     for i in range(len(structure)):
-        word = word + letterchoice(structure[i])
-    return(word)
+        newpart = letterchoice(structure[i])
+        word = word + newpart
+        if i < 3:
+            abbrev = abbrev + newpart[0]
+    return(word, abbrev)
 
 def structuregen():
     structure = []
@@ -79,4 +83,12 @@ def businessfy(name):
     title = businesstypes[num]
     return(name.capitalize()+title)
 
-print(businessfy(wordgen(structuregen())))
+structure = structuregen()
+names = wordgen(structure)
+title = names[0]
+if len(names[1]) < 3: abbreviation = names[0][0:3].upper()
+else: abbreviation = names[1].upper()
+businessname = businessfy(title)
+
+print(businessname+"\n"+abbreviation)
+
